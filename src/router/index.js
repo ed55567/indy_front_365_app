@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import PhotosIndex from "../views/ServicesIndex.vue";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
+import ServicesIndex from "../views/ServicesIndex.vue";
 
 Vue.use(VueRouter)
 
@@ -22,8 +22,8 @@ const routes = [
   {
     path: "/services",
     name: "services-index",
-    component: ServicesIndex,
-  },
+    component: ServicesIndex
+  }
 ]
 
 const router = new VueRouter({
