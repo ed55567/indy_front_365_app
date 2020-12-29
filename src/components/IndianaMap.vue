@@ -11,8 +11,7 @@
 </style>
 
 <script>
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiZWRhbmllbHM1NTUiLCJhIjoiY2tqMHExdnc1MGpoZTJycGhtcWxjemR6cyJ9.HFI61Th4IQguxzjt7kmVYw";
+mapboxgl.accessToken = "process.env.VUE_APP_MY_API_KEY";
 var map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/mapbox/streets-v11", // stylesheet location

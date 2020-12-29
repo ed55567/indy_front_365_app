@@ -2,12 +2,10 @@
    <div class="services-index">
      <h1>All Services</h1>
      <div id='map'></div> 
-     <div class="dropdown">
-    <input class="dropdown-input" type="text" placeholder="Service Type" />
-    <div class="dropdown-list"></div>
-  </div>
+     <input class="form-control" type="text" v-model="serviceTerm" placeholder="Search Service Type" />
      <input class="form-control" type="text" v-model="cityTerm" placeholder="Search City" />
-     <div v-for="service in filterBy(services, cityTerm, 'city')">
+     <div v-for="service in filterBy(filterBy(services, cityTerm, 'city'), serviceTerm, 'service_type')">
+       
      <!-- <div v-for="service in services"> -->
        <hr>
         <h2>{{ service.name }}</h2>
@@ -33,7 +31,7 @@ export default {
     return {
       services: [],
       cityTerm: "",
-      // serviceTerm "",
+      serviceTerm: "",
     };
   },
   //   mapboxgl.accessToken ="pk.eyJ1IjoiZWRhbmllbHM1NTUiLCJhIjoiY2tqMHExdnc1MGpoZTJycGhtcWxjemR6cyJ9.HFI61Th4IQguxzjt7kmVYw";
