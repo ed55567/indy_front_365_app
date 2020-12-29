@@ -5,6 +5,10 @@
       <router-link to="/about">About</router-link>
       |
        <router-link to="/services">All Services</router-link>
+       |
+       <router-link to="/network">Join The System</router-link>
+       |
+       <router-link to="/request">Request Needs</router-link>
     </div>
     <router-view/>
   </div>

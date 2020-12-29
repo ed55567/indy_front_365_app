@@ -2,6 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import ServicesIndex from "../views/ServicesIndex.vue";
+import Network from '../views/Network';
+import Request from '../views/Request';
+
+
 
 Vue.use(VueRouter)
 
@@ -23,7 +27,17 @@ const routes = [
     path: "/services",
     name: "services-index",
     component: ServicesIndex
-  }
+  },
+  {
+    path: '/Network',
+    name: 'Network',
+    component: Network
+  },
+  {
+    path: '/Request',
+    name: 'Request',
+    component: Request
+  },
 ]
 
 const router = new VueRouter({

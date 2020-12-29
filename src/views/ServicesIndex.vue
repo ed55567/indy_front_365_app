@@ -1,7 +1,8 @@
 <template>
    <div class="services-index">
-     <h1>All Services</h1>
+     <h1>All Indiana Services</h1>
      <div id='map'></div> 
+     <br>
      <input class="form-control" type="text" v-model="serviceTerm" placeholder="Search Service Type" />
      <input class="form-control" type="text" v-model="cityTerm" placeholder="Search City" />
      <div v-for="service in filterBy(filterBy(services, cityTerm, 'city'), serviceTerm, 'service_type')">
@@ -17,6 +18,18 @@
      </div>
    </div>
 </template>
+
+<style>
+#map {
+  width: 600px;
+  height: 400px;
+}
+
+.form-control {
+  padding: 1%;
+  margin: auto;
+}
+</style>
 
 <script>
 import Vue from "vue";
@@ -34,13 +47,17 @@ export default {
       serviceTerm: "",
     };
   },
-  //   mapboxgl.accessToken ="pk.eyJ1IjoiZWRhbmllbHM1NTUiLCJhIjoiY2tqMHExdnc1MGpoZTJycGhtcWxjemR6cyJ9.HFI61Th4IQguxzjt7kmVYw";
-  //  var map = new mapboxgl.Map({
-  //   container: "map",
-  //   style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-  //   center: [-74.5, 40], // starting position [lng, lat]
-  //   zoom: 9, // starting zoom
-  // }),
+  mounted: function () {
+    // console.log(process.env.VUE_APP_MY_API_KEY)
+    mapboxgl.accessToken = process.env.VUE_APP_MY_API_KEY;
+    var map = new mapboxgl.Map({
+      container: "map",
+      style: "", // stylesheet location
+      center: [-86.158066, 39.768402], // starting position [lng, lat]
+      zoom: 6, // starting zoom
+    });
+    var marker = new mapboxgl.Marker().setLngLat([39.7684, 86.1581]).addTo(map);
+  },
   created: function () {
     axios.get("/api/services").then((response) => {
       console.log("services index", response);
