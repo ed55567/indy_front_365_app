@@ -9,9 +9,9 @@
        
      <!-- <div v-for="service in services"> -->
        <hr>
-        <h2>{{ service.name }}</h2>
+        <h3>{{ service.name }}</h3>
         <!-- <img v-bind:src="service.url" v-bind:alt="service.name" /> -->
-        <p>Service Type: {{ service.service_type }}</p>
+        <h6>Service Type: {{ service.service_type }}</h6>
         <p>Address: {{ service.address }}</p>
         <p>City: {{ service.city }}</p>
         <router-link to="/photos">Contact Info</router-link>
@@ -26,8 +26,10 @@
 }
 
 .form-control {
-  padding: 1%;
-  margin: auto;
+  display: block;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
 
