@@ -3,10 +3,12 @@
      <h1>All Indiana Services</h1>
      <div id='map'></div> 
      <br>
-     <input class="form-control" type="text" v-model="serviceTerm" placeholder="Search Service Type" />
-     <input class="form-control" type="text" v-model="cityTerm" placeholder="Search City" />
-     <div v-for="service in filterBy(filterBy(services, cityTerm, 'city'), serviceTerm, 'service_type')">
-       
+        
+        <input class="form-control" id="input" type="text" v-model="serviceTerm" placeholder="Search Service Type" />
+        
+        <input class="form-control"  id="input" type="text" v-model="cityTerm" placeholder="Search City" />
+        <br>
+        <div v-for="service in filterBy(filterBy(services, cityTerm, 'city'), serviceTerm, 'service_type')">
      <!-- <div v-for="service in services"> -->
        <hr>
         <h3>{{ service.name }}</h3>
@@ -23,13 +25,15 @@
 #map {
   width: 600px;
   height: 400px;
+  margin: auto;
 }
 
+#input {
+  margin: auto;
+}
 .form-control {
   display: block;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 }
 </style>
 
@@ -54,7 +58,7 @@ export default {
     mapboxgl.accessToken = process.env.VUE_APP_MY_API_KEY;
     var map = new mapboxgl.Map({
       container: "map",
-      style: "", // stylesheet location
+      style: "mapbox://styles/edaniels555/ckj8960t81g8z19phfvsgmxpn", // stylesheet location
       center: [-86.158066, 39.768402], // starting position [lng, lat]
       zoom: 6, // starting zoom
     });

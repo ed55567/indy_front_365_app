@@ -5,18 +5,54 @@
        <ul>
          <li v-for="error in errors">{{ error }}</li>
        </ul>
-       First Name: <input type="text" v-model="newServiceFName" />
-       Last Name: <input type="text" v-model="newServiceLName" />
-       Service Name: <input type="text" v-model="newServiceName" />
-       Address: <input type="text" v-model="newServiceAddress" />
-       Job Title: <input type="text" v-model="newServiceJob" />
-       City: <input type="text" v-model="newServiceCity" />
-       Zip Code: <input type="text" v-model="newServiceZipCode" />
-       Email: <input type="text" v-model="newServiceEmail" />
-       <input type="submit" value="Join" />
      </form>
+       <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">account_circle</i>
+          <input placeholder="First Name" id="icon_prefix" type="text" v-model="newServiceFName" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">account_circle</i>
+          <input placeholder="Last Name" id="icon_telephone" type="tel" v-model="newServiceLName" class="validate">
+          <label for="icon_telephone"></label>
+        </div>
+         <div class="input-field col s6">
+          <i class="material-icons prefix">business</i>
+          <input placeholder="Service Name" id="icon_prefix" type="text" v-model="newServiceName" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+         <div class="input-field col s6">
+          <i class="material-icons prefix">business</i>
+          <input placeholder="Address" id="icon_prefix" type="text" v-model="newServiceAddress" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+         <div class="input-field col s6">
+          <i class="material-icons prefix">business_center</i>
+          <input placeholder="Job Title" id="icon_prefix" type="text" v-model="newServiceJob" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+         <div class="input-field col s6">
+          <i class="material-icons prefix">location_city</i>
+          <input placeholder="City" id="icon_prefix" type="text" v-model="newServiceCity" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+         <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input placeholder="Email" id="icon_prefix" type="text" v-model="newServiceEmail" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+      </div>
+      <input type="submit" value="Join" />
+    </form>
    </div>
+  </div>
 </template>
+
+<style>
+</style>
 
 <script>
 import axios from "axios";
@@ -24,14 +60,13 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      newServiceFName: "",
-      newServiceLName: "",
-      newServiceName: "",
-      newServiceJob: "",
-      newServiceAddress: "",
-      newServiceCity: "",
-      newServicesZipcode: "",
-      newServiceEmail: "",
+      newServiceFName: "Tommy",
+      newServiceLName: "Gunn",
+      newServiceName: "Rocky 5",
+      newServiceJob: "Boxer",
+      newServiceAddress: "305 North philadelphia ",
+      newServiceCity: "philadelphia",
+      newServiceEmail: "tommythemachinegunn@gmail.com",
       errors: [],
     };
   },

@@ -1,10 +1,21 @@
 <template>
-  <div class="home">
+  <div class="home" id="button">
     <h1>{{ message }}</h1>
+    <a id="buttonlarge" class="waves-effect waves-light btn-large">Join the System</a>
+    <a id="buttonlarge" class="waves-effect waves-light btn-large">All Services</a>
+    <a id="buttonlarge" class="waves-effect waves-light btn-large">Request Needs</a>
   </div>
 </template>
 
 <style>
+#button {
+  padding: 10%;
+  margin: auto;
+}
+
+#buttonlarge {
+  margin: 5%;
+}
 </style>
 
 <script>
