@@ -58,12 +58,36 @@ export default {
     mapboxgl.accessToken = process.env.VUE_APP_MY_API_KEY;
     var map = new mapboxgl.Map({
       container: "map",
-      style: "mapbox://styles/edaniels555/ckj8960t81g8z19phfvsgmxpn", // stylesheet location
+      style: "t", // stylesheet location
       center: [-86.158066, 39.768402], // starting position [lng, lat]
       zoom: 6, // starting zoom
     });
-    var marker = new mapboxgl.Marker().setLngLat([39.7684, 86.1581]).addTo(map);
+    map.on("click", function (e) {
+      var features = map.queryRenderedFeatures(e.point, {
+        layers: ["indiana-services-map-area-agency"], // replace this with the name of the layer
+      });
+
+      if (!features.length) {
+        return;
+      }
+
+      var feature = features[0];
+
+      var popup = new mapboxgl.Popup({ offset: [0, -5] })
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML(
+          "<h6>" +
+            feature.properties.Provider +
+            "</h3><p>" +
+            feature.properties.Service +
+            "</p>" +
+            feature.properties.Address +
+            "</p>"
+        )
+        .addTo(map);
+    });
   },
+
   created: function () {
     axios.get("/api/services").then((response) => {
       console.log("services index", response);
