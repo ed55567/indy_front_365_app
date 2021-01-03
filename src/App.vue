@@ -9,6 +9,8 @@
        <router-link to="/network">Join The System</router-link>
        |
        <router-link to="/request">Request Needs</router-link>
+       |
+       <router-link to="/Map">Request Needs</router-link>
     </div>
     <router-view/>
   </div>
