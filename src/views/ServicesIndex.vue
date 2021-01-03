@@ -21,7 +21,9 @@
             <div class = 'scroll'>
               <div  v-for="service in filterBy(filterBy(services, cityTerm, 'city'), serviceTerm, 'service_type')"> 
                 <hr>
+                <router-link to="/services">
                 <h5>{{ service.name }}</h5>
+                </router-link>
                 <h6>Service Type: {{ service.service_type }}</h6>
                 <p>Address: {{ service.address }}</p>
                 <p>City: {{ service.city }}</p>
@@ -50,7 +52,7 @@ body {
 
 .map-overlay {
   position: absolute;
-  width: 25%;
+  width: 35%;
   top: 0;
   bottom: 0;
   left: 0;
@@ -83,26 +85,6 @@ body {
   max-height: 100%;
 }
 
-.map-overlay .listing > * {
-  display: block;
-  padding: 5px 10px;
-  margin: 0;
-}
-
-.map-overlay .listing a {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  color: #404;
-  text-decoration: none;
-}
-
-.map-overlay .listing a:last-child {
-  border: none;
-}
-
-.map-overlay .listing a:hover {
-  background: #f0f0f0;
-}
-
 #input {
   margin: auto;
 }
@@ -121,9 +103,66 @@ body {
 
   -webkit-overflow-scrolling: touch;
 }
+
+/* Marker tweaks */
+.mapboxgl-popup-close-button {
+  display: contents;
+}
+
+.mapboxgl-popup-content {
+  font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", Sans-serif;
+  padding: 0;
+  width: 180px;
+}
+
+.mapboxgl-popup-content-wrapper {
+  padding: 1%;
+}
+
+.mapboxgl-popup-content h3 {
+  background: #91c949;
+  color: #fff;
+  margin: 0;
+  display: block;
+  padding: 10px;
+  border-radius: 3px 3px 0 0;
+  font-weight: 700;
+  margin-top: -15px;
+}
+
+.mapboxgl-popup-content h4 {
+  margin: 0;
+  display: block;
+  padding: 10px;
+  font-weight: 400;
+}
+
+.mapboxgl-popup-content div {
+  padding: 10px;
+}
+
+.mapboxgl-container .leaflet-marker-icon {
+  cursor: pointer;
+}
+
+.mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+  margin-top: 15px;
+}
+
+.mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+  border-bottom-color: #91c949;
+}
 </style>
 
 <script>
+/* This will let you use the .remove() function later on */
+if (!("remove" in Element.prototype)) {
+  Element.prototype.remove = function () {
+    if (this.parentNode) {
+      this.parentNode.removeChild(this);
+    }
+  };
+}
 import Vue from "vue";
 import Vue2Filters from "vue2-filters";
 import axios from "axios";
@@ -139,6 +178,7 @@ export default {
       serviceTerm: "",
     };
   },
+
   mounted: function () {
     // console.log(process.env.VUE_APP_MY_API_KEY)
     mapboxgl.accessToken = process.env.VUE_APP_MY_API_KEY;
@@ -146,10 +186,24 @@ export default {
       container: "map",
       style: "", // stylesheet location
       center: [-86.158066, 39.768402], // starting position [lng, lat]
-      maxzoom: 18,
-      minzoom: 7,
+      maxZoom: 18,
+      minZoom: 7,
       zoom: 15, // starting zoom
     });
+
+    function flyToStore(currentFeature) {
+      map.flyTo({
+        center: currentFeature.geometry.coordinates,
+        zoom: 15,
+      });
+    }
+
+    function createPopUp(currentFeature) {
+      var popUps = document.getElementsByClassName("mapboxgl-popup");
+      /** Check if there is already a popup on the map and if so, remove it */
+      if (popUps[0]) popUps[0].remove();
+    }
+
     map.on("click", function (e) {
       var features = map.queryRenderedFeatures(e.point, {
         layers: ["indiana-services"], // replace this with the name of the layer
@@ -161,7 +215,7 @@ export default {
 
       var feature = features[0];
 
-      var popup = new mapboxgl.Popup({ offset: [0, -5] })
+      var popup = new mapboxgl.Popup({ closeOnClick: false })
         .setLngLat(feature.geometry.coordinates)
         .setHTML(
           "<h6>" +
@@ -182,6 +236,5 @@ export default {
       this.services = response.data;
     });
   },
-  methods: {},
 };
 </script>
