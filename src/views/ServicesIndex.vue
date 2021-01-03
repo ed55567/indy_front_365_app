@@ -21,7 +21,7 @@
             <div class = 'scroll'>
               <div  v-for="service in filterBy(filterBy(services, cityTerm, 'city'), serviceTerm, 'service_type')"> 
                 <hr>
-                <router-link to="/services">
+                <router-link to="/link-">
                 <h5>{{ service.name }}</h5>
                 </router-link>
                 <h6>Service Type: {{ service.service_type }}</h6>
@@ -184,11 +184,44 @@ export default {
     mapboxgl.accessToken = process.env.VUE_APP_MY_API_KEY;
     var map = new mapboxgl.Map({
       container: "map",
-      style: "", // stylesheet location
+      style: "mapbox://styles/edaniels555/ckjdngp1717xk19s04m2v3ik4", // stylesheet location
       center: [-86.158066, 39.768402], // starting position [lng, lat]
       maxZoom: 18,
       minZoom: 7,
       zoom: 15, // starting zoom
+    });
+
+    this.properties.features.forEach(function (services, i) {
+      services.properties.Address = i;
+    });
+
+    map.on("load", function (e) {
+      /* Add the data to your map as a layer */
+      map.addLayer({
+        id: "Address",
+        type: "symbol",
+        /* Add a GeoJSON source containing place coordinates and information. */
+        source: {
+          type: "geojson",
+          data: properties,
+        },
+      });
+    });
+
+    link.addEventListener("click", function (e) {
+      for (var i = 0; i < data.features.length; i++) {
+        if (this.id === "link-" + data.features[i].properties.id) {
+          var clickedListing = data.features[i];
+          flyToStore(clickedListing);
+          createPopUp(clickedListing);
+        }
+      }
+
+      var activeItem = document.getElementsByClassName("active");
+      if (activeItem[0]) {
+        activeItem[0].classList.remove("active");
+      }
+      this.parentNode.classList.add("active");
     });
 
     function flyToStore(currentFeature) {
@@ -197,6 +230,34 @@ export default {
         zoom: 15,
       });
     }
+
+    map.on("click", function (e) {
+      /* Determine if a feature in the "locations" layer exists at that point. */
+      var features = map.queryRenderedFeatures(e.point, {
+        layers: ["indiana-services"],
+      });
+
+      /* If yes, then: */
+      if (features.length) {
+        var clickedPoint = features[0];
+
+        /* Fly to the point */
+        flyToStore(clickedPoint);
+
+        /* Close all other popups and display popup for clicked store */
+        createPopUp(clickedPoint);
+
+        /* Highlight listing in sidebar (and remove highlight for all other listings) */
+        var activeItem = document.getElementsByClassName("active");
+        if (activeItem[0]) {
+          activeItem[0].classList.remove("active");
+        }
+        var listing = document.getElementById(
+          "listing-" + clickedPoint.properties.id
+        );
+        listing.classList.add("active");
+      }
+    });
 
     function createPopUp(currentFeature) {
       var popUps = document.getElementsByClassName("mapboxgl-popup");
