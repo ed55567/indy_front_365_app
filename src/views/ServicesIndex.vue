@@ -1,70 +1,70 @@
 <template>
   <div class="services-index">
-    <h1>All Indiana Services</h1>
     <div id='map'></div>
     <div class="map-overlay">
       <fieldset>
-        <input 
-            id="feature-filter"
-            type="text"
-            placeholder="Filter results by name" />
          <input class="form-control" 
             id="input" 
-            type="text" 
+            type="geocoder" 
             v-model="serviceTerm" 
             placeholder="Search Service Type" />
          <input class="form-control"  
             id="input" 
-            type="text" 
+            type="geocoder" 
             v-model="cityTerm" 
             placeholder="Search City" />
-            <div class = 'scroll'>
-              <div  v-for="service in filterBy(filterBy(services, cityTerm, 'city'), serviceTerm, 'service_type')"> 
+          <input class="form-control" 
+            id="input" 
+            type="geocoder" 
+            v-model="nameTerm" 
+            placeholder="Search Service Name" />
+            <div class ='scroll'>
+              <div  v-for="service in filterBy(filterBy(filterBy(services, cityTerm, 'city'), serviceTerm, 'service_type' ), nameTerm,'name')"> 
                 <hr>
-                <router-link to="/link-">
                 <h5>{{ service.name }}</h5>
-                </router-link>
                 <h6>Service Type: {{ service.service_type }}</h6>
                 <p>Address: {{ service.address }}</p>
                 <p>City: {{ service.city }}</p>
                 <router-link to="/photos">Contact Info</router-link>
-            </div>
+              </div>
         </div>
      </fieldset> 
       <div id="feature-listing" class="listing"></div>     
     </div>
-    <br>
-    
   </div>
 </template>
 
 <style>
 body {
-  margin: 0;
-  padding: 0;
+  margin: auto;
+  padding: auto;
 }
 #map {
   position: absolute;
-  top: 0;
+  top: 100px;
   bottom: 0;
   width: 100%;
+  border: solid;
+  padding: auto;
 }
 
 .map-overlay {
   position: absolute;
   width: 35%;
-  top: 0;
+  top: 100px;
   bottom: 0;
   left: 0;
   font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
   background-color: #fff;
   max-height: 100%;
   overflow: hidden;
+  border: solid;
 }
 
 .map-overlay fieldset {
-  /* display: none;
-  background: #ddd;  */
+  display: block;
+  border: 2px solid;
+
   border: none;
   padding: 10px;
   margin: 0;
@@ -72,30 +72,22 @@ body {
 
 .map-overlay input {
   display: block;
-  border: none;
+  border: groove;
   width: 100%;
-  border-radius: 3px;
+  border-radius: 0.5px;
   padding: 10px;
   margin: 0;
   box-sizing: border-box;
+  border: solid;
 }
 
 .map-overlay .listing {
   overflow: auto;
   max-height: 100%;
 }
-
-#input {
-  margin: auto;
-}
-.form-control {
-  display: block;
-  max-width: 600px;
-}
-
 .scroll {
   position: absolute;
-  top: 150px;
+  top: 130px;
   bottom: 40px;
   overflow: scroll;
   margin: 0;
@@ -152,7 +144,23 @@ body {
 .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
   border-bottom-color: #91c949;
 }
+
+.geocoder {
+  position: absolute;
+  z-index: 1;
+  width: 50%;
+  left: 50%;
+  margin-left: -25%;
+  top: 10px;
+}
+.mapboxgl-ctrl-geocoder {
+  padding: 10%;
+}
+#map {
+  margin-top: 0px;
+}
 </style>
+
 
 <script>
 /* This will let you use the .remove() function later on */
@@ -176,6 +184,7 @@ export default {
       services: [],
       cityTerm: "",
       serviceTerm: "",
+      nameTerm: "",
     };
   },
 
@@ -184,102 +193,46 @@ export default {
     mapboxgl.accessToken = process.env.VUE_APP_MY_API_KEY;
     var map = new mapboxgl.Map({
       container: "map",
-      style: "mapbox://styles/edaniels555/ckjdngp1717xk19s04m2v3ik4", // stylesheet location
+      style: "mapbox://styles/edaniels555/ckjdngp1717xk19s04m2v3ik4", // style URL
       center: [-86.158066, 39.768402], // starting position [lng, lat]
       maxZoom: 18,
       minZoom: 7,
       zoom: 15, // starting zoom
     });
 
-    this.properties.features.forEach(function (services, i) {
-      services.properties.Address = i;
-    });
-
-    map.on("load", function (e) {
-      /* Add the data to your map as a layer */
-      map.addLayer({
-        id: "Address",
-        type: "symbol",
-        /* Add a GeoJSON source containing place coordinates and information. */
-        source: {
-          type: "geojson",
-          data: properties,
+    map.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        // limit results to united states
+        // countries: "USA",
+        queryOptions: {
+          country: "us",
         },
-      });
-    });
 
-    link.addEventListener("click", function (e) {
-      for (var i = 0; i < data.features.length; i++) {
-        if (this.id === "link-" + data.features[i].properties.id) {
-          var clickedListing = data.features[i];
-          flyToStore(clickedListing);
-          createPopUp(clickedListing);
-        }
-      }
-
-      var activeItem = document.getElementsByClassName("active");
-      if (activeItem[0]) {
-        activeItem[0].classList.remove("active");
-      }
-      this.parentNode.classList.add("active");
-    });
-
-    function flyToStore(currentFeature) {
-      map.flyTo({
-        center: currentFeature.geometry.coordinates,
-        zoom: 15,
-      });
-    }
-
-    map.on("click", function (e) {
-      /* Determine if a feature in the "locations" layer exists at that point. */
-      var features = map.queryRenderedFeatures(e.point, {
-        layers: ["indiana-services"],
-      });
-
-      /* If yes, then: */
-      if (features.length) {
-        var clickedPoint = features[0];
-
-        /* Fly to the point */
-        flyToStore(clickedPoint);
-
-        /* Close all other popups and display popup for clicked store */
-        createPopUp(clickedPoint);
-
-        /* Highlight listing in sidebar (and remove highlight for all other listings) */
-        var activeItem = document.getElementsByClassName("active");
-        if (activeItem[0]) {
-          activeItem[0].classList.remove("active");
-        }
-        var listing = document.getElementById(
-          "listing-" + clickedPoint.properties.id
-        );
-        listing.classList.add("active");
-      }
-    });
+        // further limit results to the geographic bounds representing the region of
+        // New South Wales
+        bbox: [-88.088379, 37.579413, -84.79248, 41.787697],
+        mapboxgl: mapboxgl,
+      })
+    );
 
     function createPopUp(currentFeature) {
       var popUps = document.getElementsByClassName("mapboxgl-popup");
       /** Check if there is already a popup on the map and if so, remove it */
       if (popUps[0]) popUps[0].remove();
     }
-
     map.on("click", function (e) {
       var features = map.queryRenderedFeatures(e.point, {
         layers: ["indiana-services"], // replace this with the name of the layer
       });
 
-      if (!features.length) {
-        return;
-      }
-
       var feature = features[0];
-
       var popup = new mapboxgl.Popup({ closeOnClick: false })
         .setLngLat(feature.geometry.coordinates)
         .setHTML(
-          "<h6>" +
+          '<h6><a href="/api/services' +
+            feature.properties.URL +
+            '">' +
             feature.properties.Provider +
             "</h3><p>" +
             feature.properties.Service +

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" class="nav-wrapper">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
       |
@@ -9,8 +9,6 @@
        <router-link to="/network">Join The System</router-link>
        |
        <router-link to="/request">Request Needs</router-link>
-       |
-       <router-link to="/Map">Request Needs</router-link>
     </div>
     <router-view/>
   </div>
@@ -35,6 +33,6 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #d59f0f;
 }
 </style>

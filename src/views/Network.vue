@@ -45,13 +45,17 @@
           <label for="icon_prefix"></label>
         </div>
       </div>
-      <input type="submit" value="Join" />
+      <input type="submit" id="buttonlarge" class="waves-effect waves-light btn-large" value="Join" /> 
     </form>
    </div>
   </div>
 </template>
 
 <style>
+.services-new {
+  margin: auto;
+  padding: 3%;
+}
 </style>
 
 <script>
