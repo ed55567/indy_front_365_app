@@ -64,7 +64,6 @@ body {
 .map-overlay fieldset {
   display: block;
   border: 2px solid;
-
   border: none;
   padding: 10px;
   margin: 0;

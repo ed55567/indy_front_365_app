@@ -1,25 +1,63 @@
 <template>
  <div :style="image" class="image">
-  <div class="home" id="button">
+  <div class="home" id="button"> 
    
   </div>
     <h1 class="title">{{ message }}</h1>
-    <a href="network" id="buttonlarge" class="waves-effect waves-light btn-large">Join the System</a>
+    <div class="row">
+    <a href="network"  id="buttonlarge" class="waves-effect waves-light btn-large btn1">Join the System</a>
     <br>
-    <a  href="/services" id="buttonlarge" class="waves-effect waves-light btn-large">All Services</a>
+    <a  href="/services" id="buttonlarge" class="waves-effect waves-light btn-large btn2">All Services</a>
     <br>
-    <a  href="/request" id="buttonlarge" class="waves-effect waves-light btn-large">Request Needs</a>
+    <a  href="/request" id="buttonlarge" class="waves-effect waves-light btn-large btn3">Request Needs</a>
+    <div class="clear"></div>
     <br>
+    </div>
   </div>
 </template>
 
 <style>
-#buttonlarge {
-  padding: 0%;
-  margin: auto;
-  object-fit: cover;
-  position: relative;
+.row {
+  display: inline-block;
 }
+
+.btn1 {
+  margin-bottom: 30px;
+  margin-left: 150px;
+}
+
+.btn2 {
+  margin-bottom: 30px;
+  margin-left: 150px;
+}
+
+.btn3 {
+  margin-bottom: 30px;
+  margin-left: 150px;
+}
+
+.clear {
+  clear: both;
+}
+
+#buttonlarge {
+  right: 22px;
+  top: 120px;
+  width: 100%;
+  display: block;
+  border: none;
+  color: white;
+  padding: 4px 4px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 50px;
+  font-size: 16px;
+  background-color: #d59f0f;
+  float: left;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
 .image {
   position: relative;
   height: 100vh;
@@ -56,11 +94,8 @@ h1 {
   color: #d59f0f;
   margin: auto;
   font-size: 105px;
-}
-
-#buttonlarge {
-  margin: 5%;
-  background-color: #d59f0f;
+  position: absolute;
+  top: 150px;
 }
 </style>
 
