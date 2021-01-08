@@ -6,9 +6,15 @@
       |
        <router-link to="/services">All Services</router-link>
        |
-       <router-link to="/network">Join The System</router-link>
+       <router-link to="/signup">Join The System</router-link>
        |
        <router-link to="/request">Request Needs</router-link>
+       |
+        <router-link to="/signup">Signup</router-link>
+       |  
+        <router-link to="/login">Login</router-link>
+       |
+        <router-link to="/logout">Logout</router-link>
     </div>
     <router-view/>
   </div>
