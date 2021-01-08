@@ -18,8 +18,9 @@
             type="geocoder" 
             v-model="nameTerm" 
             placeholder="Search Service Name" />
+            <button v-on:click="resetOptions">Reset</button>
             <div class ='scroll'>
-              <div  v-for="service in filterBy(filterBy(filterBy(services, cityTerm, 'city'), serviceTerm, 'service_type' ), nameTerm,'name')"> 
+              <div  v-for="service in filterBy(filterBy(filterBy(services, cityTerm, 'city',), serviceTerm, 'service_type' ), nameTerm,'name')"> 
                 <hr>
                 <h5>{{ service.name }}</h5>
                 <h6>Service Type: {{ service.service_type }}</h6>
@@ -86,7 +87,7 @@ body {
 }
 .scroll {
   position: absolute;
-  top: 130px;
+  top: 150px;
   bottom: 40px;
   overflow: scroll;
   margin: 0;
@@ -248,6 +249,13 @@ export default {
       console.log("services index", response);
       this.services = response.data;
     });
+  },
+  methods: {
+    resetOptions() {
+      this.cityTerm = null;
+      this.serviceTerm = null;
+      this.nameTerm = null;
+    },
   },
 };
 </script>

@@ -1,13 +1,12 @@
 <template>
    <div class="services-new">
      <h1>Join The System</h1>
-     <form v-on:submit.prevent="createService()">
        <ul>
          <li v-for="error in errors">{{ error }}</li>
        </ul>
-     </form>
+  
        <div class="row">
-    <form class="col s12">
+    <form  v-on:submit.prevent="createService()" class="col s12">
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">account_circle</i>
@@ -45,7 +44,7 @@
           <label for="icon_prefix"></label>
         </div>
       </div>
-      <input type="submit" id="buttonlarge" class="waves-effect waves-light btn-large" value="Join" /> 
+      <input type="submit"  class="waves-effect waves-light btn-large btn_0" value="Join" /> 
     </form>
    </div>
   </div>
@@ -55,6 +54,10 @@
 .services-new {
   margin: auto;
   padding: 3%;
+}
+
+.btn_0 {
+  margin: auto;
 }
 </style>
 
