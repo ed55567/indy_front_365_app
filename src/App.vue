@@ -6,11 +6,7 @@
       |
        <router-link to="/services">All Services</router-link>
        |
-       <router-link to="/signup">Join The System</router-link>
-       |
        <router-link to="/request">Request Needs</router-link>
-       |
-        <router-link to="/signup">Signup</router-link>
        |  
         <router-link to="/login">Login</router-link>
        |

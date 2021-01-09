@@ -18,6 +18,13 @@
   </div>
 </template>
 
+<style>
+.login {
+  margin: auto;
+  padding: 3%;
+}
+</style>
+
 <script>
 import axios from "axios";
 

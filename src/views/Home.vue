@@ -5,11 +5,11 @@
   </div>
     <h1 class="title">{{ message }}</h1>
     <div class="row">
-    <a href="network"  id="buttonlarge" class="waves-effect waves-light btn-large btn1">Join the System</a>
+    <a  href="/request" id="buttonlarge" class="waves-effect waves-light btn-large btn3">Request Needs</a>
     <br>
     <a  href="/services" id="buttonlarge" class="waves-effect waves-light btn-large btn2">All Services</a>
     <br>
-    <a  href="/request" id="buttonlarge" class="waves-effect waves-light btn-large btn3">Request Needs</a>
+    <a href="signup"  id="buttonlarge" class="waves-effect waves-light btn-large btn1">Sign Up Services</a>
     <div class="clear"></div>
     <br>
     </div>

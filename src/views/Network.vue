@@ -8,42 +8,62 @@
        <div class="row">
     <form  v-on:submit.prevent="createService()" class="col s12">
       <div class="row">
+
         <div class="input-field col s6">
           <i class="material-icons prefix">account_circle</i>
-          <input placeholder="First Name" id="icon_prefix" type="text" v-model="newServiceFName" class="validate">
+          <input placeholder="Provider Name" id="icon_prefix" type="text" v-model="newServiceName" class="validate">
           <label for="icon_prefix"></label>
         </div>
+
         <div class="input-field col s6">
           <i class="material-icons prefix">account_circle</i>
-          <input placeholder="Last Name" id="icon_telephone" type="tel" v-model="newServiceLName" class="validate">
+          <input placeholder="Service Type" id="icon_telephone" type="tel" v-model="newServiceType" class="validate">
           <label for="icon_telephone"></label>
         </div>
-         <div class="input-field col s6">
-          <i class="material-icons prefix">business</i>
-          <input placeholder="Service Name" id="icon_prefix" type="text" v-model="newServiceName" class="validate">
-          <label for="icon_prefix"></label>
-        </div>
+
          <div class="input-field col s6">
           <i class="material-icons prefix">business</i>
           <input placeholder="Address" id="icon_prefix" type="text" v-model="newServiceAddress" class="validate">
           <label for="icon_prefix"></label>
         </div>
+
          <div class="input-field col s6">
-          <i class="material-icons prefix">business_center</i>
-          <input placeholder="Job Title" id="icon_prefix" type="text" v-model="newServiceJob" class="validate">
-          <label for="icon_prefix"></label>
-        </div>
-         <div class="input-field col s6">
-          <i class="material-icons prefix">location_city</i>
+          <i class="material-icons prefix">business</i>
           <input placeholder="City" id="icon_prefix" type="text" v-model="newServiceCity" class="validate">
           <label for="icon_prefix"></label>
         </div>
+
+         <div class="input-field col s6">
+          <i class="material-icons prefix">business_center</i>
+          <input placeholder="Zip Code" id="icon_prefix" type="text" v-model="newServicesZipCode" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+
+         <div class="input-field col s6">
+          <i class="material-icons prefix">location_city</i>
+          <input placeholder="Phone" id="icon_prefix" type="text" v-model="newServicesPhone" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+
          <div class="input-field col s12">
           <i class="material-icons prefix">email</i>
-          <input placeholder="Email" id="icon_prefix" type="text" v-model="newServiceEmail" class="validate">
+          <input placeholder="Website" id="icon_prefix" type="text" v-model="newServicesWebsite" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input placeholder="Email" id="icon_prefix" type="text" v-model="newServicesEmail" class="validate">
+          <label for="icon_prefix"></label>
+        </div>
+
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input placeholder="Description" id="icon_prefix" type="text" v-model="newServicesDescription" class="validate">
           <label for="icon_prefix"></label>
         </div>
       </div>
+
       <input type="submit"  class="waves-effect waves-light btn-large btn_0" value="Join" /> 
     </form>
    </div>
@@ -67,13 +87,15 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      newServiceFName: "Tommy",
-      newServiceLName: "Gunn",
-      newServiceName: "Rocky 5",
-      newServiceJob: "Boxer",
-      newServiceAddress: "305 North philadelphia ",
-      newServiceCity: "philadelphia",
-      newServiceEmail: "tommythemachinegunn@gmail.com",
+      newServiceName: "Tommy",
+      newServiceType: "Gunn",
+      newServiceAddress: "Rocky 5",
+      newServiceCity: "Boxer",
+      newServicesZipCode: "305 North philadelphia ",
+      newServicesPhone: "philadelphia",
+      newServicesWebsite: "tommythemachinegunn@gmail.com",
+      newServicesEmail: "",
+      newServicesDescription: "",
       errors: [],
     };
   },
@@ -81,13 +103,16 @@ export default {
   methods: {
     createService: function () {
       var params = {
-        fname: this.newServiceFName,
-        lname: this.newServiceLName,
         name: this.newServiceName,
-        Job: this.newServiceJob,
-        Address: this.newServiceAddress,
-        City: this.newServicesCity,
-        Email: this.newServicesEmail,
+        servicetype: this.newServiceType,
+        address: this.newServiceAddress,
+        city: this.newServiceCity,
+        zipcode: this.newServiceAddress,
+        county: this.newServicesZipCode,
+        phone: this.newServicesPhone,
+        website: this.newServicesWebsite,
+        email: this.newServicesEmail,
+        description: this.newServicesDescription,
       };
       axios
         .post("/api/services", params)
