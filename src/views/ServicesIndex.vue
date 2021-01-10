@@ -18,7 +18,7 @@
             type="geocoder" 
             v-model="nameTerm" 
             placeholder="Search Service Name" />
-            <button v-on:click="resetOptions">Reset</button>
+            <button class="reset" v-on:click="resetOptions">Reset</button>
             <div class ='scroll'>
               <div  v-for="service in filterBy(filterBy(filterBy(services, cityTerm, 'city',), serviceTerm, 'service_type' ), nameTerm,'name')"> 
                 <hr>
@@ -98,13 +98,16 @@ body {
 
 /* Marker tweaks */
 .mapboxgl-popup-close-button {
-  display: contents;
+  border-bottom-color: #91c949;
 }
 
 .mapboxgl-popup-content {
-  font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", Sans-serif;
-  padding: 0;
-  width: 180px;
+  color: #ffffff;
+  background-color: #394380;
+  border-color: #d59f0f;
+  max-width: 250px;
+  box-shadow: 3px 3px 2px #000f5d;
+  font-family: "roboto";
 }
 
 .mapboxgl-popup-content-wrapper {
@@ -119,7 +122,7 @@ body {
   padding: 10px;
   border-radius: 3px 3px 0 0;
   font-weight: 700;
-  margin-top: -15px;
+  margin-top: 15px;
 }
 
 .mapboxgl-popup-content h4 {
@@ -138,7 +141,7 @@ body {
 }
 
 .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
@@ -154,10 +157,14 @@ body {
   top: 10px;
 }
 .mapboxgl-ctrl-geocoder {
-  padding: 10%;
+  padding: 5%;
 }
 #map {
   margin-top: 0px;
+}
+
+.reset {
+  top: -10px;
 }
 </style>
 
@@ -221,18 +228,17 @@ export default {
       /** Check if there is already a popup on the map and if so, remove it */
       if (popUps[0]) popUps[0].remove();
     }
+
     map.on("click", function (e) {
       var features = map.queryRenderedFeatures(e.point, {
         layers: ["indiana-services"], // replace this with the name of the layer
       });
 
       var feature = features[0];
-      var popup = new mapboxgl.Popup({ closeOnClick: false })
+      var popup = new mapboxgl.Popup({})
         .setLngLat(feature.geometry.coordinates)
         .setHTML(
-          '<h6><a href="/api/services' +
-            feature.properties.URL +
-            '">' +
+          "<h6>" +
             feature.properties.Provider +
             "</h3><p>" +
             feature.properties.Service +

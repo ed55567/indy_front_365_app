@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <form v-on:submit.prevent="submit()">
-      <h1>Login</h1>
+      <h1>Login or Signup</h1>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
@@ -13,15 +13,22 @@
         <label>Password:</label>
         <input type="password" class="form-control" v-model="password">
       </div>
-      <input type="submit" class="btn btn-primary" value="Submit">
+       <br>
+      <input type="submit" class="waves-effect waves-light btn-large" value="Submit">
     </form>
+    <div>
+    </div>
   </div>
 </template>
 
 <style>
 .login {
   margin: auto;
-  padding: 3%;
+  padding: 5%;
+}
+
+.btn-large {
+  max-width: 100%;
 }
 </style>
 
@@ -48,7 +55,7 @@ export default {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
-          this.$router.push("/");
+          this.$router.push("/network");
         })
         .catch((error) => {
           this.errors = ["Invalid email or password."];

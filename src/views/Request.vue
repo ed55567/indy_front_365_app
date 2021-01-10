@@ -1,7 +1,7 @@
 <template>
    <div class="services-new">
      <h1>Request Forum</h1>
-     <form v-on:submit.prevent="createService()">
+     <form v-on:submit.prevent="createRequest()">
        <ul>
          <li v-for="error in errors">{{ error }}</li>
        </ul>
@@ -26,7 +26,7 @@
         </div>
          <div class="input-field col s6">
           <i class="material-icons prefix">local_phone</i>
-          <input placeholder="Phone Number" id="icon_prefix" type="text" v-model="newPhoneNumber" class="validate">
+          <input placeholder="Phone Number" id="icon_prefix" type="text" v-model="newServicePhone" class="validate">
           <label for="icon_prefix"></label>
         </div>
          <div class="input-field col s6">
@@ -44,8 +44,18 @@
           <input placeholder="Zip Code" id="icon_prefix" type="text" v-model="newServiceZipCode" class="validate">
           <label for="icon_prefix"></label>
         </div>
+         <div class="input-field col s12">
+          <i class="material-icons prefix">work</i>
+          <input placeholder="Service Type" id="icon_prefix" type="text" v-model="newServicesType" class="validate">
+          <label for="icon_prefix"></label>
+         </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">description</i>
+          <input placeholder="Service Description Need" id="icon_prefix" type="text" v-model="newServiceDescription">
+            <textarea id="textarea2" class="materialize-textarea  validate"  data-length="120"></textarea>
+          </div>
       </div>
-      <input type="submit" id="buttonlarge" class="waves-effect waves-light btn-large" value="Request" /> 
+      <input type="submit" id="buttonlarge" class="waves-effect waves-light btn-large" value="requests" />
     </form>
    </div>
   </div>
@@ -54,7 +64,13 @@
 <style>
 .services_new {
   margin: auto;
+  top: 40px;
   padding: 3%;
+}
+
+#buttonlarge {
+  top: -20px;
+  right: 3px;
 }
 </style>
 
@@ -64,37 +80,42 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      newServiceFName: "",
-      newServiceLName: "",
-      newServiceName: "",
-      newServiceJob: "",
-      newServiceAddress: "",
-      newServiceCity: "",
-      newServicesZipcode: "",
-      newServiceEmail: "",
+      newServiceFName: "Tommy",
+      newServiceLName: "Gunn",
+      newServiceEmail: "tedgun@gmail.com",
+      newServicePhone: "587-987-9998",
+      newServiceAddress: "228 blue lane",
+      newServiceCity: "indianapolis",
+      newServiceZipCode: "97874",
+      newServicesType: "adult education",
+      newServiceDescription: "my house",
       errors: [],
     };
   },
+
   created: function () {},
   methods: {
-    createService: function () {
+    createRequest: function () {
       var params = {
         fname: this.newServiceFName,
         lname: this.newServiceLName,
-        name: this.newServiceName,
-        Job: this.newServiceJob,
-        Address: this.newServiceAddress,
-        City: this.newServicesCity,
-        Email: this.newServicesEmail,
+        email: this.newServiceEmail,
+        phone: this.newServicePhone,
+        address: this.newServiceAddress,
+        city: this.newServiceCity,
+        zipcode: this.newServiceZipCode,
+        servicetype: this.newServicesType,
+        description: this.newServiceDescription,
       };
+
       axios
-        .post("/api/services", params)
+        .post("/api/requests", params)
         .then((response) => {
-          console.log("services create", response);
-          this.$router.push("/services");
+          console.log("requests create", response);
+          this.$router.push("/requests");
         })
         .catch((error) => {
-          console.log("services create error", error.response);
+          console.log("requests create error", error.response);
           this.errors = error.response.data.errors;
         });
     },

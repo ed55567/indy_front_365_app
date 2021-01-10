@@ -1,15 +1,15 @@
 <template>
  <div :style="image" class="image">
   <div class="home" id="button"> 
-   
   </div>
+  <img :src="image" >
     <h1 class="title">{{ message }}</h1>
     <div class="row">
-    <a  href="/request" id="buttonlarge" class="waves-effect waves-light btn-large btn3">Request Needs</a>
+    <a  href="/request" id="buttonlarge_home" class="waves-effect waves-light btn-large btn3">Request Needs</a>
     <br>
-    <a  href="/services" id="buttonlarge" class="waves-effect waves-light btn-large btn2">All Services</a>
+    <a  href="/services" id="buttonlarge_home" class="waves-effect waves-light btn-large btn2">All Services</a>
     <br>
-    <a href="signup"  id="buttonlarge" class="waves-effect waves-light btn-large btn1">Sign Up Services</a>
+    <a href="signup"  id="buttonlarge_home" class="waves-effect waves-light btn-large btn1">Sign Up Services</a>
     <div class="clear"></div>
     <br>
     </div>
@@ -19,11 +19,13 @@
 <style>
 .row {
   display: inline-block;
+  top: 100px;
 }
 
 .btn1 {
   margin-bottom: 30px;
   margin-left: 150px;
+  left: 150px;
 }
 
 .btn2 {
@@ -34,26 +36,25 @@
 .btn3 {
   margin-bottom: 30px;
   margin-left: 150px;
+  left: -200px;
 }
 
 .clear {
   clear: both;
 }
 
-#buttonlarge {
+#buttonlarge_home {
   right: 22px;
-  top: 120px;
+  top: 150px;
   width: 100%;
   display: block;
   border: none;
   color: white;
   padding: 4px 4px;
-  text-align: center;
   text-decoration: none;
   line-height: 50px;
   font-size: 16px;
-  background-color: #d59f0f;
-  float: left;
+  /* background-color: #d59f0f; */
   margin-left: 10px;
   overflow: hidden;
 }
@@ -96,6 +97,7 @@ h1 {
   font-size: 105px;
   position: absolute;
   top: 150px;
+  padding: 10px;
 }
 </style>
 
@@ -107,6 +109,7 @@ export default {
       image: {
         backgroundImage:
           "url(https://upload.wikimedia.org/wikipedia/commons/1/18/Indiana_State_Capitol_Market_St.jpg)",
+        // image: require("@/assets/indiana_state_logo.png"),
       },
     };
   },
