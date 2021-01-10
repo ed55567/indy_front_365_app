@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <form v-on:submit.prevent="submit()">
-      <h1>Login or Signup</h1>
+      <h1>Login</h1>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
@@ -14,7 +14,7 @@
         <input type="password" class="form-control" v-model="password">
       </div>
        <br>
-      <input type="submit" class="waves-effect waves-light btn-large" value="Submit">
+      <input type="submit" class="waves-effect waves-light btn-large btn_1" value="Login">
     </form>
     <div>
     </div>

@@ -2,8 +2,9 @@
  <div :style="image" class="image">
   <div class="home" id="button"> 
   </div>
-  <img :src="image" >
-    <h1 class="title">{{ message }}</h1>
+  <!-- <img :src="image" > -->
+  <div :style="imagePath" class="state"></div>
+    <h1 class="title" >{{ message }}</h1> 
     <div class="row">
     <a  href="/request" id="buttonlarge_home" class="waves-effect waves-light btn-large btn3">Request Needs</a>
     <br>
@@ -11,6 +12,7 @@
     <br>
     <a href="signup"  id="buttonlarge_home" class="waves-effect waves-light btn-large btn1">Sign Up Services</a>
     <div class="clear"></div>
+  
     <br>
     </div>
   </div>
@@ -98,6 +100,42 @@ h1 {
   position: absolute;
   top: 150px;
   padding: 10px;
+  text-shadow: 1px 1px 2px black, 0 0 10px rgb(0, 0, 0), 0 0 3px darkblue;
+}
+
+.wave {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 70px;
+  width: 100%;
+  background: dodgerblue;
+  z-index: -1;
+}
+
+.wave::before {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 100% 90%;
+  width: 51%;
+  height: 75px;
+  background-color: white;
+  right: 0px;
+  top: 35px;
+}
+
+.wave::after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 100% 90%;
+  width: 51%;
+  height: 75px;
+  background-color: dodgerblue;
+  left: -8px;
+  top: 25px;
 }
 </style>
 
@@ -106,10 +144,12 @@ export default {
   data: function () {
     return {
       message: "Welcome to Indy 365",
+      imagePath: {
+        backgroundImage: "url('/indiana_state_color.png')",
+      },
       image: {
         backgroundImage:
           "url(https://upload.wikimedia.org/wikipedia/commons/1/18/Indiana_State_Capitol_Market_St.jpg)",
-        // image: require("@/assets/indiana_state_logo.png"),
       },
     };
   },

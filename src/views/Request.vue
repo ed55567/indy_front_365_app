@@ -1,13 +1,12 @@
 <template>
    <div class="services-new">
      <h1>Request Forum</h1>
-     <form v-on:submit.prevent="createRequest()">
        <ul>
          <li v-for="error in errors">{{ error }}</li>
        </ul>
-     </form>
-       <div class="row">
-    <form class="col s12">
+     
+       <div class="row">   
+    <form v-on:submit.prevent="createRequest()" class="col s12">
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">account_circle</i>
@@ -80,15 +79,15 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      newServiceFName: "Tommy",
-      newServiceLName: "Gunn",
-      newServiceEmail: "tedgun@gmail.com",
-      newServicePhone: "587-987-9998",
-      newServiceAddress: "228 blue lane",
-      newServiceCity: "indianapolis",
-      newServiceZipCode: "97874",
-      newServicesType: "adult education",
-      newServiceDescription: "my house",
+      newServiceFName: "",
+      newServiceLName: "",
+      newServiceEmail: "",
+      newServicePhone: "",
+      newServiceAddress: "",
+      newServiceCity: "",
+      newServiceZipCode: "",
+      newServicesType: "",
+      newServiceDescription: "",
       errors: [],
     };
   },
@@ -105,14 +104,14 @@ export default {
         city: this.newServiceCity,
         zipcode: this.newServiceZipCode,
         servicetype: this.newServicesType,
-        description: this.newServiceDescription,
+        servicedescription: this.newServiceDescription,
       };
 
       axios
         .post("/api/requests", params)
         .then((response) => {
           console.log("requests create", response);
-          this.$router.push("/requests");
+          this.$router.push("/");
         })
         .catch((error) => {
           console.log("requests create error", error.response);

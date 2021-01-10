@@ -149,7 +149,7 @@ body {
 }
 
 .geocoder {
-  position: absolute;
+  position: relative;
   z-index: 1;
   width: 50%;
   left: 50%;
@@ -157,7 +157,8 @@ body {
   top: 10px;
 }
 .mapboxgl-ctrl-geocoder {
-  padding: 5%;
+  padding: 4%;
+  position: relative;
 }
 #map {
   margin-top: 0px;
@@ -210,10 +211,12 @@ export default {
     map.addControl(
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
+        placeholder: "Search for Address",
         // limit results to united states
         // countries: "USA",
         queryOptions: {
           country: "us",
+          cityTerm: "",
         },
 
         // further limit results to the geographic bounds representing the region of
@@ -222,6 +225,10 @@ export default {
         mapboxgl: mapboxgl,
       })
     );
+
+    function render(feature) {
+      return `<span class='geocoder-menu-item'>${feature.properties.cityTerm}</span>`;
+    }
 
     function createPopUp(currentFeature) {
       var popUps = document.getElementsByClassName("mapboxgl-popup");

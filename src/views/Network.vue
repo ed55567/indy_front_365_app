@@ -46,7 +46,7 @@
         </div>
 
          <div class="input-field col s12">
-          <i class="material-icons prefix">email</i>
+          <i class="material-icons prefix">web</i>
           <input placeholder="Website" id="icon_prefix" type="text" v-model="newServicesWebsite" class="validate">
           <label for="icon_prefix"></label>
         </div>
@@ -58,7 +58,7 @@
         </div>
 
         <div class="input-field col s12">
-          <i class="material-icons prefix">email</i>
+          <i class="material-icons prefix">description</i>
           <input placeholder="Description" id="icon_prefix" type="text" v-model="newServicesDescription" class="validate">
           <label for="icon_prefix"></label>
         </div>
@@ -87,13 +87,13 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      newServiceName: "Tommy",
-      newServiceType: "Gunn",
-      newServiceAddress: "Rocky 5",
-      newServiceCity: "Boxer",
-      newServicesZipCode: "305 North philadelphia ",
-      newServicesPhone: "philadelphia",
-      newServicesWebsite: "tommythemachinegunn@gmail.com",
+      newServiceName: "",
+      newServiceType: "",
+      newServiceAddress: "",
+      newServiceCity: "",
+      newServicesZipCode: "",
+      newServicesPhone: "",
+      newServicesWebsite: "",
       newServicesEmail: "",
       newServicesDescription: "",
       errors: [],
@@ -118,7 +118,7 @@ export default {
         .post("/api/services", params)
         .then((response) => {
           console.log("services create", response);
-          this.$router.push("/");
+          this.$router.push("/logout");
         })
         .catch((error) => {
           console.log("services create error", error.response);
