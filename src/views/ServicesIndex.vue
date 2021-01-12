@@ -20,14 +20,15 @@
             placeholder="Search Service Name" />
             <button class="reset" v-on:click="resetOptions">Reset</button>
             <div class ='scroll'>
-              <div  v-for="service in filterBy(filterBy(filterBy(services, cityTerm, 'city',), serviceTerm, 'service_type' ), nameTerm,'name')"> 
-                <hr>
-                <h5>{{ service.name }}</h5>
-                <h6>Service Type: {{ service.service_type }}</h6>
-                <p>Address: {{ service.address }}</p>
-                <p>City: {{ service.city }}</p>
-                <router-link to="/photos">Contact Info</router-link>
-              </div>
+              
+                  <div v-for="service in filterBy(filterBy(filterBy(services, cityTerm, 'city',), serviceTerm, 'service_type' ), nameTerm,'name')"> 
+                    <hr>
+                    <h5>{{ service.name }}</h5>
+                    <h6>Service Type: {{ service.service_type }}</h6>
+                    <p>Address: {{ service.address }}</p>
+                    <p>City: {{ service.city }}</p>
+                    <router-link to="/photos">Contact Info</router-link>
+                  </div>
         </div>
      </fieldset> 
       <div id="feature-listing" class="listing"></div>     
@@ -92,8 +93,6 @@ body {
   overflow: scroll;
   margin: 0;
   padding: 0;
-
-  -webkit-overflow-scrolling: touch;
 }
 
 /* Marker tweaks */
@@ -259,7 +258,7 @@ export default {
 
   created: function () {
     axios.get("/api/services").then((response) => {
-      console.log("services index", response);
+      console.log("services", response);
       this.services = response.data;
     });
   },

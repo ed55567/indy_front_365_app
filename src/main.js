@@ -5,6 +5,10 @@ import axios from "axios";
 import VueFormGenerator from 'vue-form-generator';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'material-design-icons/iconfont/material-icons.css';
+import Autocomplete from '@trevoreyre/autocomplete-vue';
+import '@trevoreyre/autocomplete-vue/dist/style.css';
+
+Vue.use(Autocomplete)
 
 Vue.use(VueFormGenerator);
 
