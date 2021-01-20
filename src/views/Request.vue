@@ -111,7 +111,7 @@ export default {
         .post("/api/requests", params)
         .then((response) => {
           console.log("requests create", response);
-          this.$router.push("/");
+          this.$router.push("/Home");
         })
         .catch((error) => {
           console.log("requests create error", error.response);
