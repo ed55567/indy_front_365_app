@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <div id="nav" class="nav-wrapper">
-      <router-link to="/home">Home</router-link> |
+      <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
       |
-       <router-link to="/services">All Services</router-link>
+       <router-link to="/Services">All Services</router-link>
        |
-       <router-link to="/request">Request Needs</router-link>
+       <router-link to="/Request">Request Needs</router-link>
        |  
-        <router-link to="/login">Login</router-link>
+        <router-link to="/Login">Login</router-link>
          <!-- |  
         <router-link to="/Services_address">Address</router-link> -->
        <!-- |
