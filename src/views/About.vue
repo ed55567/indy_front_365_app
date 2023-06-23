@@ -13,13 +13,24 @@
 <style>
 .about {
   margin: auto;
-  top: 40px;
   padding: 3%;
+  max-width: 800px;
 }
 
 .paragraph {
   font-size: 20px;
   color: #d59f0f;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .about {
+    padding: 2%;
+  }
+
+  .paragraph {
+    font-size: 18px;
+  }
 }
 </style>
 
