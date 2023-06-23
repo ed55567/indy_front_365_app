@@ -31,13 +31,15 @@
   padding: 30px;
 }
 
-#nav a {
+.nav-link {
   font-weight: bold;
   color: #2c3e50;
   font-size: 22px;
+  margin-right: 10px;
+  text-decoration: none;
 }
 
-#nav a.router-link-exact-active {
+.nav-link.router-link-exact-active {
   color: #d59f0f;
 }
 </style>
